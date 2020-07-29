@@ -12,7 +12,7 @@ def get_db():
             current_app.config['DATABASE'],
             detect_types=sqlite3.PARSE_DECLTYPES
         )
-        g.db.row_factory = sqlite3.Row
+        g.db.row_factory = sqlite3.Row # sqlite3.Row tells the connection to return rows that behave like dicts. This allows accessing the columns by name.
 
     return g.db
 
@@ -27,7 +27,6 @@ def init_db():
 
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
-
 
 @click.command('init-db')
 @with_appcontext

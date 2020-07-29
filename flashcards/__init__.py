@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-
+from flask import render_template
 
 def create_app(test_config=None):
     # create and configure the app
@@ -24,12 +24,19 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
 
-    return app
+    #Testing out some routing to check page rendering with Flask
+    @app.route('/home/', endpoint='home')
+    def homepage(name=None):
+        return render_template('homepage.html', name=name)
+
+    @app.route('/addedit/', endpoint='addedit')
+    def homepage(name=None):
+        return render_template('./flashcards/addedit.html', name=name)
+
+    @app.route('/study/', endpoint='study')
+    def homepage(name=None):
+        return render_template('./flashcards/study.html', name=name)
 
     from . import db
     db.init_app(app)
